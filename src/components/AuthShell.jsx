@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 export default function AuthShell({ children, heroImages = [] }) {
   const [activeImage, setActiveImage] = useState(0);
+  const isImageAuth = heroImages.length > 0;
 
   useEffect(() => {
     if (heroImages.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
@@ -25,26 +26,35 @@ export default function AuthShell({ children, heroImages = [] }) {
           />
         ))}
         <div className="brand auth-aside-brand">
-          <div className="brand-mark"><Milk size={22} /></div>
+          {isImageAuth ? (
+            <img className="auth-logo-mark" src="/favicon.svg?v=2" alt="" />
+          ) : (
+            <div className="brand-mark"><Milk size={22} /></div>
+          )}
           <div>
             <div className="brand-name">DairyFarm</div>
-            <div className="brand-sub">Manager</div>
+            {!isImageAuth && <div className="brand-sub">Manager</div>}
           </div>
         </div>
         <div className="auth-aside-copy">
           <h2>Every litre, counted.</h2>
-          <p>Record milk at each milking, keep track of every cow and see how your farm is doing.</p>
-          <ul className="auth-points">
-            <li><CheckCircle2 size={18} /> Morning, lunch and evening records</li>
-            <li><CheckCircle2 size={18} /> Daily, weekly and monthly reports</li>
-            <li><CheckCircle2 size={18} /> Your farm's data is private to you</li>
-          </ul>
+          <p>{isImageAuth ? 'A clear record of every milking.' : 'Record milk at each milking, keep track of every cow and see how your farm is doing.'}</p>
+          {!isImageAuth && (
+            <ul className="auth-points">
+              <li><CheckCircle2 size={18} /> Morning, lunch and evening records</li>
+              <li><CheckCircle2 size={18} /> Daily, weekly and monthly reports</li>
+              <li><CheckCircle2 size={18} /> Your farm's data is private to you</li>
+            </ul>
+          )}
         </div>
         <span className="brand-sub">© DairyFarm Manager</span>
       </section>
       <section className={`auth-main ${heroImages.length ? 'auth-main-with-image' : ''}`}>
         <div className="auth-card">
-          <div className="auth-mobile-brand"><div className="brand-mark"><Milk size={20} /></div> DairyFarm Manager</div>
+          <div className="auth-mobile-brand">
+            {isImageAuth ? <img className="auth-logo-mark" src="/favicon.svg?v=2" alt="" /> : <div className="brand-mark"><Milk size={20} /></div>}
+            {isImageAuth ? <span className="auth-login-brand-name">DairyFarm</span> : 'DairyFarm Manager'}
+          </div>
           {children}
         </div>
       </section>

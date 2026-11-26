@@ -40,22 +40,24 @@ export default function Login() {
 
   return (
     <AuthShell heroImages={LOGIN_HERO_IMAGES}>
-      <h1>Welcome back</h1>
-      <p className="sub">Log in to see your farm.</p>
-      {error && <Alert>{error}</Alert>}
-      <form onSubmit={submit} noValidate>
-        <Field label="Email" htmlFor="email">
-          <div className="input-icon"><Mail size={18} />
-            <input id="email" className="input" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
-          </div>
-        </Field>
-        <Field label="Password" htmlFor="password">
-          <PasswordInput id="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" />
-        </Field>
-        <p className="small" style={{ marginBottom: 16, textAlign: 'right' }}><Link to="/forgot-password">Forgot your password?</Link></p>
-        <button className="btn btn-lg btn-block" disabled={busy}>{busy ? 'Logging in…' : 'Log in'}</button>
-      </form>
-      <p className="auth-switch">New here? <Link to="/register">Create your farm account</Link></p>
+      <div className="login-content">
+        <h1>Welcome back</h1>
+        <p className="sub">Log in to see your farm.</p>
+        {error && <Alert>{error}</Alert>}
+        <form onSubmit={submit} noValidate>
+          <Field label="Email" htmlFor="email">
+            <div className="input-icon"><Mail size={18} />
+              <input id="email" className="input" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
+            </div>
+          </Field>
+          <Field label="Password" htmlFor="password">
+            <PasswordInput id="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" />
+          </Field>
+          <p className="small login-forgot"><Link to="/forgot-password">Forgot your password?</Link></p>
+          <button className="btn btn-lg btn-block" disabled={busy}>{busy ? 'Logging in…' : 'Log in'}</button>
+        </form>
+        <p className="auth-switch">New here? <Link to="/register">Create your farm account</Link></p>
+      </div>
     </AuthShell>
   );
 }
